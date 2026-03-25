@@ -66,24 +66,12 @@ public class Vector extends Point {
     }
 
     /**
-     * Subtracts another vector from this vector.
-     * @param rhs the vector to subtract
-     * @return a new {@link Vector} representing the difference
-     * @throws IllegalArgumentException if the result is the zero vector
-     */
-    public Vector subtract(Vector rhs) {
-        return new Vector(_xyz.subtract(rhs._xyz));
-    }
-
-    /**
      * Scales this vector by a scalar factor.
      * @param factor the scaling factor
      * @return a new {@link Vector} scaled by the given factor
      * @throws IllegalArgumentException if the result is the zero vector
      */
     public Vector scale(double factor) {
-        if (isZero(factor))
-            throw new IllegalArgumentException("Scaling by zero creates a zero vector");
         return new Vector(_xyz.scale(factor));
     }
 
@@ -99,8 +87,6 @@ public class Vector extends Point {
         double cx = y1 * z2 - z1 * y2;
         double cy = z1 * x2 - x1 * z2;
         double cz = x1 * y2 - y1 * x2;
-        if (isZero(cx) && isZero(cy) && isZero(cz))
-            throw new IllegalArgumentException("Cross product of parallel vectors is zero");
         return new Vector(alignZero(cx), alignZero(cy), alignZero(cz));
     }
 
@@ -134,8 +120,6 @@ public class Vector extends Point {
      */
     public Vector normalize() {
         double len = length();
-        if (isZero(len))
-            throw new IllegalArgumentException("Cannot normalize zero vector");
         return new Vector(_xyz.divide(len));
     }
 
@@ -151,5 +135,5 @@ public class Vector extends Point {
     public int hashCode() { return _xyz.hashCode(); }
 
     @Override
-    public String toString() { return "" + _xyz; }
+    public String toString() { return super.toString(); }
 }
